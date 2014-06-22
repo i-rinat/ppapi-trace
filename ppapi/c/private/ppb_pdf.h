@@ -6,6 +6,7 @@
 #define PPAPI_C_PRIVATE_PPB_PDF_H_
 
 #include "ppapi/c/dev/ppb_font_dev.h"
+#include "ppapi/c/dev/deprecated_bool.h"
 #include "ppapi/c/pp_bool.h"
 #include "ppapi/c/pp_instance.h"
 #include "ppapi/c/pp_resource.h"
