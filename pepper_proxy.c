@@ -1,3 +1,4 @@
+#include "cpp-compat.h"
 #include <dlfcn.h>
 #include <stdint.h>
 #include <stdio.h>

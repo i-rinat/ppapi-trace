@@ -9,9 +9,6 @@
 #include "ppapi/c/pp_point.h"
 #include "ppapi/c/pp_var.h"
 
-typedef struct PP_Var PP_Var;
-typedef struct PP_Point PP_Point;
-
 #define PPP_PDF_INTERFACE_1 "PPP_Pdf;1"
 #define PPP_PDF_INTERFACE PPP_PDF_INTERFACE_1
 
@@ -32,6 +29,6 @@ struct PPP_Pdf_1 {
   void (*Transform)(PP_Instance instance, PP_PrivatePageTransformType type);
 };
 
-typedef struct PPP_Pdf_1 PPP_Pdf;
+typedef PPP_Pdf_1 PPP_Pdf;
 
 #endif  // PPAPI_C_PRIVATE_PPP_PDF_H_
