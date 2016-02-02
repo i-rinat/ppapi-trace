@@ -1,19 +1,19 @@
 PLUGINNAME=ppapitrace
 CC=gcc
 
-all: pepper_proxy.c out/trace-wrappers.c
+all: pepper_proxy.c build/trace-wrappers.c
 	@echo compiling plugin
-	@$(CC) -Wall -O -shared -fPIC -I. -Iout/ pepper_proxy.c -o out/lib${PLUGINNAME}.so
+	@$(CC) -Wall -O -shared -fPIC -I. -Ibuild/ pepper_proxy.c -o build/lib${PLUGINNAME}.so
 
-out/trace-wrappers.c: gen.py out/prep-stamp
-	$(shell mkdir out 2> /dev/null || true)
+build/trace-wrappers.c: gen.py build/prep-stamp
+	$(shell mkdir build 2> /dev/null || true)
 	@echo generating trace-wrappers.c
-	@python gen.py > out/trace-wrappers.c
-	@touch out/prep-stamp
+	@python gen.py > build/trace-wrappers.c
+	@touch build/prep-stamp
 
-out/prep-stamp:
+build/prep-stamp:
 	@echo preprocessing PPAPI header files
-	$(shell mkdir out 2> /dev/null || true)
-	$(shell sh -c 'find ppapi/ -type f -name "pp[bp]_*.h" | while read line; do bname=`basename $$line`; $(CC) -E -include no-extensions.h -include cpp-compat.h -I. $$line | grep -v ^# > out/$$bname.prep; done')
+	$(shell mkdir build 2> /dev/null || true)
+	$(shell sh -c 'find ppapi/ -type f -name "pp[bp]_*.h" | while read line; do bname=`basename $$line`; $(CC) -E -include no-extensions.h -include cpp-compat.h -I. $$line | grep -v ^# > build/$$bname.prep; done')
 
-.PHONY: out/prep-stamp
+.PHONY: build/prep-stamp

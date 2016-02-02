@@ -137,7 +137,7 @@ my_PPP_GetInterface(const char *interface_name)
     print("}")
 
 
-for filename in glob.glob('out/*.prep'):
+for filename in glob.glob('build/*.prep'):
     ast = parse_file(filename, use_cpp=False)
     gen_orig_structs(ast)
     gen_trace_functions(ast)
