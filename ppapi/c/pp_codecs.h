@@ -3,11 +3,12 @@
  * found in the LICENSE file.
  */
 
-/* From pp_codecs.idl modified Wed Nov  5 13:38:52 2014. */
+/* From pp_codecs.idl modified Fri Sep 18 10:42:55 2015. */
 
 #ifndef PPAPI_C_PP_CODECS_H_
 #define PPAPI_C_PP_CODECS_H_
 
+#include "ppapi/c/pp_bool.h"
 #include "ppapi/c/pp_macros.h"
 #include "ppapi/c/pp_point.h"
 #include "ppapi/c/pp_rect.h"
@@ -40,6 +41,14 @@ typedef enum {
   PP_VIDEOPROFILE_VP9_ANY = 12,
   PP_VIDEOPROFILE_MAX = PP_VIDEOPROFILE_VP9_ANY
 } PP_VideoProfile;
+
+/**
+ * Audio profiles.
+ */
+typedef enum {
+  PP_AUDIOPROFILE_OPUS = 0,
+  PP_AUDIOPROFILE_MAX = PP_AUDIOPROFILE_OPUS
+} PP_AudioProfile;
 
 /**
  * Hardware acceleration options.
@@ -129,6 +138,120 @@ struct PP_VideoPicture_0_1 {
    * Dimensions of the texture holding the decoded picture.
    */
   struct PP_Size texture_size;
+};
+
+/**
+ * Supported video profile information. See the PPB_VideoEncoder function
+ * GetSupportedProfiles() for more details.
+ */
+struct PP_VideoProfileDescription {
+  /**
+   * The codec profile.
+   */
+  PP_VideoProfile profile;
+  /**
+   * Dimensions of the maximum resolution of video frames, in pixels.
+   */
+  struct PP_Size max_resolution;
+  /**
+   * The numerator of the maximum frame rate.
+   */
+  uint32_t max_framerate_numerator;
+  /**
+   * The denominator of the maximum frame rate.
+   */
+  uint32_t max_framerate_denominator;
+  /**
+   * Whether the profile is hardware accelerated.
+   */
+  PP_Bool hardware_accelerated;
+};
+
+/**
+ * Supported video profile information. See the PPB_VideoEncoder function
+ * GetSupportedProfiles() for more details.
+ */
+struct PP_VideoProfileDescription_0_1 {
+  /**
+   * The codec profile.
+   */
+  PP_VideoProfile profile;
+  /**
+   * Dimensions of the maximum resolution of video frames, in pixels.
+   */
+  struct PP_Size max_resolution;
+  /**
+   * The numerator of the maximum frame rate.
+   */
+  uint32_t max_framerate_numerator;
+  /**
+   * The denominator of the maximum frame rate.
+   */
+  uint32_t max_framerate_denominator;
+  /**
+   * A value indicating if the profile is available in hardware, software, or
+   * both.
+   */
+  PP_HardwareAcceleration acceleration;
+};
+
+/**
+ * Supported audio profile information. See the PPB_AudioEncoder function
+ * GetSupportedProfiles() for more details.
+ */
+struct PP_AudioProfileDescription {
+  /**
+   * The codec profile.
+   */
+  PP_AudioProfile profile;
+  /**
+   * Maximum number of channels that can be encoded.
+   */
+  uint32_t max_channels;
+  /**
+   * Sample size.
+   */
+  uint32_t sample_size;
+  /**
+   * Sampling rate that can be encoded
+   */
+  uint32_t sample_rate;
+  /**
+   * Whether the profile is hardware accelerated.
+   */
+  PP_Bool hardware_accelerated;
+};
+
+/**
+ * Struct describing a bitstream buffer.
+ */
+struct PP_BitstreamBuffer {
+  /**
+   * The size, in bytes, of the bitstream data.
+   */
+  uint32_t size;
+  /**
+   * The base address of the bitstream data.
+   */
+  void* buffer;
+  /**
+   * Whether the buffer represents a key frame.
+   */
+  PP_Bool key_frame;
+};
+
+/**
+ * Struct describing an audio bitstream buffer.
+ */
+struct PP_AudioBitstreamBuffer {
+  /**
+   * The size, in bytes, of the bitstream data.
+   */
+  uint32_t size;
+  /**
+   * The base address of the bitstream data.
+   */
+  void* buffer;
 };
 /**
  * @}
